@@ -9,6 +9,7 @@
     "build:pwa": "vite build -c vite.pwa.config.js && node scripts/post-build-pwa.js",
     "preview": "vite preview",
     "preview:pwa": "vite preview -c vite.pwa.config.js --port 4173 --strictPort",
+    "sync-gcal": "node scripts/sync-gcal-headless.js",
     "test": "vitest run"
   },
   "dependencies": {
