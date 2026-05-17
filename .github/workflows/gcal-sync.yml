@@ -1,0 +1,43 @@
+name: GCal Sync
+
+on:
+  schedule:
+    - cron: '0 4 * * *' # Daily at 04:00 UTC
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: firethunder.github.io/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: firethunder.github.io
+
+      - name: Run GCal Sync
+        run: npm run sync-gcal
+        working-directory: firethunder.github.io
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/ffwtool/termine.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(data): automated gcal sync"
+            git push
+          fi
+        working-directory: firethunder.github.io
