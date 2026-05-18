@@ -12,7 +12,7 @@ export function useTermineForm(toast) {
     name: "",
     veranstalter: "Alle",
     Gruppe: "Alle",
-    ort: data.value.defaultOrt || "Brittheim",
+    ort: data.value.defaultOrt || "Feuerwehrhaus Brittheim",
     dauer: data.value.defaultDauer || 120,
   });
 
@@ -35,7 +35,7 @@ export function useTermineForm(toast) {
         name: "",
         veranstalter: "Alle",
         Gruppe: "Alle",
-        ort: data.value.defaultOrt || "Brittheim",
+        ort: data.value.defaultOrt || "Feuerwehrhaus Brittheim",
         dauer: data.value.defaultDauer || 120,
       }
       validationErrors.value = {};
