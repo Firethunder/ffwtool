@@ -25,7 +25,8 @@ export async function syncGoogleCalendar(defaultOrt, defaultDauer) {
     // Auto-tagging logic
     let gruppe = "Alle";
     const lowerTitle = title.toLowerCase();
-    if (lowerTitle.includes("zugübung")) {
+    if (lowerTitle.includes("zugÃ¼bung")) {
+
       gruppe = "Zug";
     } else if (lowerTitle.includes("absturzsicherung")) {
       gruppe = "Hosi";
