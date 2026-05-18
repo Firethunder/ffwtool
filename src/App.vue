@@ -23,6 +23,10 @@ import { useTermine } from './composables/useTermine';
 const toast = useToast();
 const confirm = useConfirm();
 
+const commitHash = import.meta.env.VITE_APP_COMMIT_HASH || 'dev';
+const buildTime = import.meta.env.VITE_APP_BUILD_TIME || new Date().toISOString();
+const shortHash = commitHash.slice(0, 7);
+
 const {
   data,
   sortedTermine,
@@ -93,6 +97,14 @@ const {
         </TabPanel>
       </TabPanels>
     </Tabs>
+
+    <footer class="mt-12 pt-6 border-t border-slate-200 text-slate-400 text-xs flex flex-wrap justify-between items-center gap-y-2">
+      <div>&copy; 2026 FFW Tool</div>
+      <div class="flex gap-4">
+        <span v-if="commitHash !== 'dev'">Revision: <span class="font-mono">{{ shortHash }}</span></span>
+        <span>Built: {{ new Date(buildTime).toLocaleString('de-DE') }}</span>
+      </div>
+    </footer>
   </div>
 </template>
 

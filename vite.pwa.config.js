@@ -14,7 +14,7 @@ export default defineConfig({
       manifest: {
         name: 'FFW Termine',
         short_name: 'FFW App',
-        description: 'Terminübersicht der Feuerwehr Rosenfeld',
+        description: 'Terminübersicht der Feuerwehr Brittheim',
         theme_color: '#ef4444',
         scope: '/app/',
         start_url: '/app/',

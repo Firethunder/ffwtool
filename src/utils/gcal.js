@@ -20,7 +20,7 @@ export async function syncGoogleCalendar(defaultOrt, defaultDauer) {
   
   return events.map(event => {
     const title = event.summary ? event.summary.value : "Unbenannter Termin";
-    const location = event.location ? event.location.value : (defaultOrt || "Feuerwehrhaus Rosenfeld");
+    const location = event.location ? event.location.value : (defaultOrt || "Feuerwehrhaus Brittheim");
     
     // Auto-tagging logic
     let gruppe = "Alle";
@@ -40,7 +40,7 @@ export async function syncGoogleCalendar(defaultOrt, defaultDauer) {
     return {
       datum: formatDate(startDate),
       name: title,
-      veranstalter: "Feuerwehr Rosenfeld",
+      veranstalter: "Alle",
       Gruppe: gruppe,
       ort: location,
       dauer: duration,

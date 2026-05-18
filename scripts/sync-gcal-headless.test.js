@@ -14,9 +14,9 @@ describe('syncGCalLogic', () => {
         id: "1",
         datum: "2026-06-01 19:00:00",
         name: "Existing Event",
-        veranstalter: "Feuerwehr Rosenfeld",
+        veranstalter: "Alle",
         Gruppe: "Alle",
-        ort: "Feuerwehrhaus",
+        ort: "Feuerwehrhaus Brittheim",
         dauer: 120,
         source: "manual"
       }
@@ -134,6 +134,8 @@ describe('syncGCalLogic', () => {
     const leakedEvent = data.termine.find(t => t.name === 'Clean Event');
     expect(leakedEvent.secret_field).toBeUndefined();
     expect(leakedEvent.other_garbage).toBeUndefined();
+    expect(leakedEvent.veranstalter).toBe('Alle');
+    expect(leakedEvent.ort).toBe('Feuerwehrhaus Brittheim');
     expect(Object.keys(leakedEvent).sort()).toEqual([
       'Gruppe', 'datum', 'dauer', 'external_id', 'id', 'name', 'ort', 'source', 'veranstalter'
     ].sort());

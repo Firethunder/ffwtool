@@ -19,7 +19,7 @@ const formatDate = (date) => {
  */
 function sanitizeEvent(event) {
   const title = event.summary ? event.summary.value : "Unbenannter Termin";
-  const location = event.location ? event.location.value : "Feuerwehrhaus Rosenfeld";
+  const location = event.location ? event.location.value : "Feuerwehrhaus Brittheim";
   
   let gruppe = "Alle";
   const lowerTitle = title.toLowerCase();
@@ -34,7 +34,7 @@ function sanitizeEvent(event) {
   return {
     datum: formatDate(startDate),
     name: title,
-    veranstalter: "Feuerwehr Rosenfeld",
+    veranstalter: "Alle",
     Gruppe: gruppe,
     ort: location,
     dauer: duration,
