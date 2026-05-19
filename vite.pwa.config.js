@@ -6,7 +6,7 @@ import { resolve } from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/ffwpwa/',
-  publicDir: resolve(__dirname, 'public'),
+  publicDir: false,
   plugins: [
     vue(),
     VitePWA({
