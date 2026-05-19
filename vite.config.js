@@ -8,8 +8,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        ffwtool: resolve(__dirname, 'ffwtool/index.html'),
-        ffwpwa: resolve(__dirname, 'ffwpwa/index.html')
+        ffwtool: resolve(__dirname, 'ffwtool/index.html')
       }
     }
   },

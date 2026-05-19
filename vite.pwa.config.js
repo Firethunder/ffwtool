@@ -5,7 +5,8 @@ import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/app/',
+  base: '/ffwpwa/',
+  publicDir: false,
   plugins: [
     vue(),
     VitePWA({
@@ -16,8 +17,8 @@ export default defineConfig({
         short_name: 'FFW App',
         description: 'Terminübersicht der Feuerwehr Brittheim',
         theme_color: '#ef4444',
-        scope: '/app/',
-        start_url: '/app/',
+        scope: '/ffwpwa/',
+        start_url: '/ffwpwa/',
         display: 'standalone',
         background_color: '#ffffff',
         icons: [
@@ -43,7 +44,7 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
         runtimeCaching: [
           {
-            urlPattern: /^https:\/\/.*\/ffwtool\/termine\.json$/,
+            urlPattern: /\/ffwtool\/termine\.json$/,
             handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'api-cache',
@@ -62,7 +63,7 @@ export default defineConfig({
   ],
   root: resolve(__dirname, 'src/pwa'),
   build: {
-    outDir: resolve(__dirname, 'dist/app'),
+    outDir: resolve(__dirname, 'dist/ffwpwa'),
     emptyOutDir: true,
     rollupOptions: {
       input: resolve(__dirname, 'src/pwa/index.html')
