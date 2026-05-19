@@ -10,7 +10,7 @@ const error = ref(null)
 
 onMounted(async () => {
   try {
-    const response = await fetch('../ffwtool/termine.json')
+    const response = await fetch('/ffwtool/termine.json')
     if (!response.ok) throw new Error('Netzwerk-Antwort war nicht ok')
     const data = await response.json()
     // Extract the 'termine' array from the wrapper object
