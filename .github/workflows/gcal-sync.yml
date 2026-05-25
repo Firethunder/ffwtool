@@ -13,22 +13,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
-
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: 'npm'
-          cache-dependency-path: firethunder.github.io/package-lock.json
-
       - name: Install dependencies
-        run: npm ci
-        working-directory: firethunder.github.io
-
+        run: npm install
       - name: Run GCal Sync
         run: npm run sync-gcal
-        working-directory: firethunder.github.io
-
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
@@ -37,7 +30,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
+            git switch -c chore/calendar
             git commit -m "chore(data): automated gcal sync"
-            git push
+            git push origin chore/calendar
           fi
-        working-directory: firethunder.github.io
