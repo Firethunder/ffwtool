@@ -1,10 +1,27 @@
 import { describe, it, expect, vi } from 'vitest';
-import { syncGCalLogic } from './sync-gcal-headless.js';
+import { formatBerlinDate, syncGCalLogic } from './sync-gcal-headless.js';
 import * as calParser from 'cal-parser';
 
 vi.mock('cal-parser', () => ({
   parseString: vi.fn()
 }));
+
+describe('formatBerlinDate', () => {
+  it('converts UTC summer time to Berlin time (CEST, +2h)', () => {
+    const utcDate = '2024-06-24T12:00:00Z';
+    expect(formatBerlinDate(utcDate)).toBe('2024-06-24 14:00:00');
+  });
+
+  it('converts UTC winter time to Berlin time (CET, +1h)', () => {
+    const utcDate = '2024-12-24T12:00:00Z';
+    expect(formatBerlinDate(utcDate)).toBe('2024-12-24 13:00:00');
+  });
+
+  it('handles Date objects', () => {
+    const date = new Date(Date.UTC(2024, 5, 24, 12, 0, 0)); // June 24
+    expect(formatBerlinDate(date)).toBe('2024-06-24 14:00:00');
+  });
+});
 
 describe('syncGCalLogic', () => {
   const localDataTemplate = {
