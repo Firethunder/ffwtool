@@ -38,6 +38,7 @@ jobs:
               git switch -c chore/calendar
             fi
             git stash pop
+            git add public/ffwtool/termine.json
             git commit -m "chore(data): automated gcal sync"
             git push origin chore/calendar
           fi
