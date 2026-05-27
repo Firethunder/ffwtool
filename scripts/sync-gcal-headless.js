@@ -6,12 +6,31 @@ import { parseString } from 'cal-parser';
 // Constants
 const GCAL_ICS_URL = "https://calendar.google.com/calendar/ical/florian.brittheim%40web.de/public/basic.ics";
 
-// Re-implementing necessary date logic to avoid dependency issues in headless script
-const formatDate = (date) => {
+// Re-implementing necessary date logic with Europe/Berlin timezone alignment
+/**
+ * Formats a date to 'YYYY-MM-DD HH:mm:ss' in Europe/Berlin timezone.
+ * @param {Date|string} date - UTC Date or ISO string
+ * @returns {string}
+ */
+export const formatBerlinDate = (date) => {
   if (!date) return '';
   const d = new Date(date);
-  const pad = n => n.toString().padStart(2, '0');
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  
+  const formatter = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Berlin',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  });
+
+  const parts = formatter.formatToParts(d);
+  const p = Object.fromEntries(parts.map(part => [part.type, part.value]));
+  
+  return `${p.year}-${p.month}-${p.day} ${p.hour}:${p.minute}:${p.second}`;
 };
 
 /**
@@ -32,14 +51,14 @@ function sanitizeEvent(event) {
   
   // Return ONLY allowed fields to prevent leakage
   return {
-    datum: formatDate(startDate),
+    datum: formatBerlinDate(startDate),
     name: title,
     veranstalter: "Alle",
     Gruppe: gruppe,
     ort: location,
     dauer: duration,
     source: "gcal",
-    external_id: event.uid ? event.uid.value : `gcal-${startDate.getTime()}-${title.substring(0, 10)}`
+    external_id: event.uid ? event.uid.value : `gcal-${new Date(startDate).getTime()}-${title.substring(0, 10)}`
   };
 }
 
@@ -116,7 +135,7 @@ export async function syncGCalLogic(localData, icsString) {
     merged.sort((a, b) => new Date(a.datum) - new Date(b.datum));
     
     data.termine = merged;
-    data.stand = formatDate(new Date());
+    data.stand = formatBerlinDate(new Date());
     return { data, changed: true };
   }
 
