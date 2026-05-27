@@ -30,7 +30,14 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git switch -c chore/calendar
+            git stash
+            git fetch origin
+            if git show-ref --quiet refs/remotes/origin/chore/calendar; then
+              git switch chore/calendar
+            else
+              git switch -c chore/calendar
+            fi
+            git stash pop
             git commit -m "chore(data): automated gcal sync"
             git push origin chore/calendar
           fi
