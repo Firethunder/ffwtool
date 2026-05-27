@@ -41,8 +41,8 @@ describe('syncGCalLogic', () => {
   };
 
   it('adds new events with unique IDs', async () => {
-    // We use a specific date that we can predict the format of
-    const startDate = new Date(2026, 5, 15, 18, 0, 0); // June 15, 18:00
+    // June 15, 18:00 UTC -> 20:00 Berlin (Summer)
+    const startDate = new Date(Date.UTC(2026, 5, 15, 18, 0, 0)); 
     
     calParser.parseString.mockReturnValue({
       events: [
@@ -62,13 +62,15 @@ describe('syncGCalLogic', () => {
     expect(data.termine.length).toBe(2);
     const newEvent = data.termine.find(t => t.name === 'New GCal Event');
     expect(newEvent).toBeDefined();
+    expect(newEvent.datum).toBe('2026-06-15 20:00:00');
     expect(newEvent.id).toBe('2');
     expect(newEvent.ort).toBe('Training Ground');
   });
 
   it('updates existing events matched by title and date', async () => {
-    // Existing event is at 2026-06-01 19:00:00
-    const startDate = new Date(2026, 5, 1, 19, 0, 0); 
+    // Existing event is at 2026-06-01 19:00:00 Berlin
+    // June 1st is Summer (+2h), so 17:00 UTC = 19:00 Berlin
+    const startDate = new Date(Date.UTC(2026, 5, 1, 17, 0, 0)); 
     
     calParser.parseString.mockReturnValue({
       events: [
@@ -87,13 +89,14 @@ describe('syncGCalLogic', () => {
     expect(changed).toBe(true);
     expect(data.termine.length).toBe(1);
     expect(data.termine[0].id).toBe('1');
+    expect(data.termine[0].datum).toBe('2026-06-01 19:00:00');
     expect(data.termine[0].ort).toBe('Updated Location');
     expect(data.termine[0].dauer).toBe(180);
   });
 
   it('sorts appointments by date after merge', async () => {
-    const dateLater = new Date(2026, 6, 1, 10, 0, 0);
-    const dateEarlier = new Date(2026, 4, 1, 10, 0, 0);
+    const dateLater = new Date(Date.UTC(2026, 6, 1, 10, 0, 0));
+    const dateEarlier = new Date(Date.UTC(2026, 4, 1, 10, 0, 0));
     
     calParser.parseString.mockReturnValue({
       events: [
