@@ -6,8 +6,8 @@ import { createEvents } from 'ics';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const JSON_PATH = path.resolve(__dirname, '../public/ffwtool/termine.json');
-const ICS_PATH = path.resolve(__dirname, '../public/ffwtool/termine.ics');
+const JSON_PATH = path.resolve(__dirname, '../public/termine.json');
+const ICS_PATH = path.resolve(__dirname, '../public/termine.ics');
 
 const mapToIcalEvent = (termin) => {
   // Use explicit date components to avoid timezone issues during conversion

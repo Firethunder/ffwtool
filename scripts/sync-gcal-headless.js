@@ -147,7 +147,7 @@ async function run() {
   
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
-  const DATA_FILE = path.resolve(__dirname, '../public/ffwtool/termine.json');
+  const DATA_FILE = path.resolve(__dirname, '../public/termine.json');
 
   try {
     // 1. Read local data

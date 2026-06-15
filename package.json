@@ -5,10 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-ics.js && vite build && npm run build:pwa",
-    "build:pwa": "vite build -c vite.pwa.config.js",
+    "build": "node scripts/generate-ics.js && vite build",
     "preview": "vite preview",
-    "preview:pwa": "vite preview -c vite.pwa.config.js --port 4173 --strictPort",
     "sync-gcal": "node scripts/sync-gcal-headless.js",
     "test": "vitest run"
   },

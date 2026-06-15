@@ -26,7 +26,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/ffwtool/termine.json
+          git add public/termine.json
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
@@ -38,7 +38,7 @@ jobs:
               git switch -c chore/calendar
             fi
             git stash pop
-            git add public/ffwtool/termine.json
+            git add public/termine.json
             git commit -m "chore(data): automated gcal sync"
             git push origin chore/calendar
           fi
