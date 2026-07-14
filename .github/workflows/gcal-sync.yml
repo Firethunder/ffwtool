@@ -21,24 +21,36 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run GCal Sync
-        run: npm run sync-gcal
+        run: |
+          git fetch origin
+          if git show-ref --quiet refs/remotes/origin/chore/calendar; then
+            git checkout origin/chore/calendar -- public/termine.json
+          fi
+          npm run sync-gcal
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Save synced file
+          cp public/termine.json public/termine_temp.json
+          
+          # Switch to calendar branch
+          git fetch origin
+          if git show-ref --quiet refs/remotes/origin/chore/calendar; then
+            git switch chore/calendar
+          else
+            git switch -c chore/calendar
+          fi
+          
+          # Restore synced file
+          mv public/termine_temp.json public/termine.json
+          
+          # Commit and push
           git add public/termine.json
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git stash
-            git fetch origin
-            if git show-ref --quiet refs/remotes/origin/chore/calendar; then
-              git switch chore/calendar
-            else
-              git switch -c chore/calendar
-            fi
-            git stash pop
-            git add public/termine.json
             git commit -m "chore(data): automated gcal sync"
             git push origin chore/calendar
           fi
