@@ -713,14 +713,6 @@
       "send": "0"
     },
     {
-      "id": 689,
-      "datum": "2026-11-06 19:00:00",
-      "name": "GF/ZF- Besprechung in Ros",
-      "veranstalter": "Alle GF",
-      "Gruppe": "Alle",
-      "send": "0"
-    },
-    {
       "id": 690,
       "datum": "2026-11-13 20:00:00",
       "name": "Erste Hilfe in Rosenfeld",
@@ -746,7 +738,7 @@
     },
     {
       "id": 693,
-      "datum": "2026-12-08 20:00:00",
+      "datum": "2026-12-04 20:00:00",
       "name": "Quizapp TM Teil 2 (Rechtsgrundlagen)",
       "veranstalter": "Steven / Tobias / Harry / Manuel / Kevin",
       "Gruppe": "Alle",
@@ -3414,7 +3406,7 @@
       "source": "manual"
     }
   ],
-  "stand": "2026-09-25 18:41:53",
+  "stand": "2026-10-23 22:03:17",
   "Gruppen": {
     "A": [
       "Michael Baumann",
