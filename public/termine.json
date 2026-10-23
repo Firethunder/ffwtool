@@ -3404,9 +3404,20 @@
       "dauer": 720,
       "send": "0",
       "source": "manual"
+    },
+    {
+      "id": 937,
+      "datum": "2026-10-26 19:30:00",
+      "name": "RockNight Brittheim - Aufräumen",
+      "veranstalter": "Alle",
+      "Gruppe": "Alle",
+      "ort": "Feuerwehrhaus Brittheim",
+      "dauer": 120,
+      "send": "0",
+      "source": "manual"
     }
   ],
-  "stand": "2026-10-23 22:03:17",
+  "stand": "2026-10-23 22:06:37",
   "Gruppen": {
     "A": [
       "Michael Baumann",
